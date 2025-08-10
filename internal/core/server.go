@@ -7,6 +7,7 @@ import (
 
 	"github.com/gliderlabs/ssh"
 	"comp/internal/database"
+	"comp/internal/modules"
 	"comp/internal/tui"
 )
 
@@ -30,6 +31,7 @@ const (
 type Server struct {
 	db        *database.BoltDB
 	sessions  map[string]*Session
+	modules   *modules.ModuleManager
 	mu        sync.RWMutex
 }
 
@@ -39,9 +41,10 @@ type Session struct {
 	Terminal *tui.Terminal
 }
 
-func NewServer(db *database.BoltDB) *Server {
+func NewServer(db *database.BoltDB, modules *modules.ModuleManager) *Server {
 	return &Server{
 		db:       db,
+		modules:  modules,
 		sessions: make(map[string]*Session),
 	}
 }
