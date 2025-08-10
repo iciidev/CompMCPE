@@ -50,7 +50,7 @@ func NewServer(db *database.BoltDB, modules *modules.ModuleManager) *Server {
 }
 
 func (s *Server) HandleSSH(sess ssh.Session) {
-	term := tui.NewTerminal(sess)
+	term := tui.NewTerminal(sess, s.modules)
 	
 	// Authentication
 	user, err := s.authenticate(sess)

@@ -3,7 +3,14 @@ set -e
 
 # Install required dependencies
 apt-get update
-apt-get install -y build-essential libjansson-dev
+apt-get install -y build-essential libjansson-dev wget
+
+# Install Go
+wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
+rm -rf /usr/local/go
+tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+echo 'export PATH=$PATH:/usr/local/go/bin' >> /root/.bashrc
 
 # Create comp user and directories
 useradd -r -s /bin/false comp || true
